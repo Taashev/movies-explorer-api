@@ -7,6 +7,7 @@ require('dotenv').config();
 // my components
 const router = require('./routes/index');
 const handleErrors = require('./middlewares/handleErrors');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 // express
 const app = express();
@@ -21,13 +22,19 @@ mongoose.connect(MONGODB);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+// request logger
+app.use(requestLogger);
+
 // routers
 app.use(router);
+
+// error logger
+app.use(errorLogger);
 
 // handle errors
 app.use(handleErrors);
 
-// server start
+// start server
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 
