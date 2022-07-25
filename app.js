@@ -7,7 +7,7 @@ require('dotenv').config();
 // my components
 const router = require('./routes/index');
 const handleErrors = require('./middlewares/handleErrors');
-const { requestLogger, errorLogger } = require('./middlewares/logger');
+const notFound = require('./middlewares/notFound');
 
 // express
 const app = express();
@@ -22,22 +22,11 @@ mongoose.connect(MONGODB);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// request logger
-app.use(requestLogger);
-
-app.use((req, res, next) => {
-  req.user = {
-    _id: '62de720c24b1303dfda9a37d', //!! вставьте сюда _id созданного в предыдущем пункте пользователя
-  };
-
-  next();
-});
-
 // routers
-app.use('/', router);
+app.use(router);
 
-// error logger
-app.use(errorLogger);
+// not found error
+app.use('*', notFound);
 
 // handle errors
 app.use(handleErrors);

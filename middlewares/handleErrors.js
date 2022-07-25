@@ -1,6 +1,5 @@
-const identifyError = require('./identifyError');
+const identifyError = require('../utils/identifyError');
 
-// eslint-disable-next-line no-unused-vars
 const handleErrors = (err, req, res, next) => {
   const { statusCode = 500, message } = identifyError(err);
 
@@ -9,6 +8,8 @@ const handleErrors = (err, req, res, next) => {
       ? 'На сервере произошла ошибка'
       : message,
   });
+
+  next();
 };
 
 module.exports = handleErrors;

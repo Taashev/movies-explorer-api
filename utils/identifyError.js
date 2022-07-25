@@ -1,7 +1,7 @@
 const HttpError = require('../components/HttpError');
 const ConflictError = require('../components/ConflictError');
 
-const { errorMessages } = require('../utils/constants');
+const { errorMessages } = require('./constants');
 
 const {
   badRequest,

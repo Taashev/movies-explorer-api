@@ -3,6 +3,7 @@ const errorMessages = {
   mailBusy: 'Этот email уже занят',
   userNotFound: 'Такого пользователя не существует',
   invalidEmailOrPassword: 'Неправильная почта или пароль',
+  unauthorized: 'Необходима авторизация',
 };
 
 module.exports = {
