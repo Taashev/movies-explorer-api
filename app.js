@@ -25,8 +25,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // request logger
 app.use(requestLogger);
 
+app.use((req, res, next) => {
+  req.user = {
+    _id: '62de720c24b1303dfda9a37d', //!! вставьте сюда _id созданного в предыдущем пункте пользователя
+  };
+
+  next();
+});
+
 // routers
-app.use(router);
+app.use('/', router);
 
 // error logger
 app.use(errorLogger);

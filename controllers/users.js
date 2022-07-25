@@ -1,19 +1,54 @@
+const bcrypt = require('bcryptjs');
 const User = require('../models/user');
-const identifyError = require('../middlewares/identifyError');
+const { errorMessages } = require('../utils/constants');
+const NotFoundError = require('../components/NotFoundError');
 
+// create user
 const createUser = (req, res, next) => {
-  const { email, password, name } = req.body;
+  const { name, email, password } = req.body;
 
-  User.create({ email, password, name })
-    .then(() => res.send({
-      name,
-      email,
-    }))
-    .catch((err) => {
-      next(identifyError(err));
-    });
+  bcrypt.hash(password, 10)
+    .then((hash) => User.create({ name, email, password: hash }))
+    .then((user) => res.status(201).send({ name: user.name, email: user.email }))
+    .catch(next);
+};
+
+// login
+const login = (req, res, next) => {
+  const { email, password } = req.body;
+
+  User.findUserByCredentials(email, password)
+    .then((user) => res.send({ name: user.name, email: user.email, _id: user._id }))
+    .catch(next);
+};
+
+// get user info
+const getUserInfo = (req, res, next) => {
+  const id = req.user._id;
+
+  User.findById(id)
+    .orFail(new NotFoundError(errorMessages.userNotFound))
+    .then((user) => res.send(user))
+    .catch(next);
+};
+
+// update user
+const updateUser = (req, res, next) => {
+  const id = req.user._id;
+  const { name, email } = req.body;
+
+  User.findByIdAndUpdate(
+    id,
+    { name, email },
+    { new: true, runValidators: true },
+  )
+    .then((user) => res.send(user))
+    .catch(next);
 };
 
 module.exports = {
   createUser,
+  login,
+  getUserInfo,
+  updateUser,
 };

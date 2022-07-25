@@ -17,6 +17,10 @@ const identifyError = (err) => {
     return new HttpError(badRequest);
   }
 
+  if (err.name === 'CastError') {
+    return new HttpError(badRequest);
+  }
+
   return err;
 };
 
