@@ -2,6 +2,7 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
+const { errors, CelebrateError } = require('celebrate');
 require('dotenv').config();
 
 // my components
@@ -24,6 +25,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // routers
 app.use(router);
+
+// celebrate errors
+app.use(errors());
 
 // not found error
 app.use('*', notFound);
