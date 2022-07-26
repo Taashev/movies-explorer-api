@@ -17,12 +17,13 @@ const createUser = (req, res, next) => {
 // login
 const login = (req, res, next) => {
   const { email, password } = req.body;
+  const { JWT_SECRET, NODE_ENV } = process.env;
 
   User.findUserByCredentials(email, password)
     .then((user) => {
       const token = jwt.sign(
         { _id: user._id },
-        'secret-key',
+        NODE_ENV === 'production' ? JWT_SECRET : 'secret-key',
         { expiresIn: '7d' },
       );
 

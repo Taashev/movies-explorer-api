@@ -1,8 +1,11 @@
 // packages
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const { errors, CelebrateError } = require('celebrate');
+const { errors } = require('celebrate');
+const helmet = require('helmet');
+const limiter = require('./middlewares/limiter');
 require('dotenv').config();
 
 // my components
@@ -18,6 +21,15 @@ const { PORT, NODE_ENV, MONGODB } = process.env;
 
 // mongodb
 mongoose.connect(MONGODB);
+
+// limiter
+app.use(limiter);
+
+// helmet
+app.use(helmet());
+
+// cookie parser
+app.use(cookieParser());
 
 // body parser
 app.use(bodyParser.json());
