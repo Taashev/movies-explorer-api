@@ -40,6 +40,9 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
+// logout
+const logout = (req, res) => res.clearCookie('jwt', '').send({ message: 'Покасиси!' });
+
 // get user info
 const getUserInfo = (req, res, next) => {
   const id = req.user._id;
@@ -67,6 +70,7 @@ const updateUser = (req, res, next) => {
 module.exports = {
   createUser,
   login,
+  logout,
   getUserInfo,
   updateUser,
 };
