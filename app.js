@@ -17,7 +17,11 @@ const notFound = require('./middlewares/notFound');
 const app = express();
 
 // env
-const { PORT, NODE_ENV, MONGODB } = process.env;
+const {
+  PORT = 3000,
+  NODE_ENV,
+  MONGODB = 'mongodb://localhost:27017/moviesdb',
+} = process.env;
 
 // mongodb
 mongoose.connect(MONGODB);
