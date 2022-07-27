@@ -1,5 +1,9 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
+const {
+  regexUrl,
+  regexRU,
+  regexEN,
+} = require('../utils/constants');
 
 const schemaMovie = new mongoose.Schema({
   country: {
@@ -25,32 +29,17 @@ const schemaMovie = new mongoose.Schema({
   image: {
     type: String,
     required: true,
-    validate: {
-      validator(url) {
-        validator.isUrl(url); //!! проверить что валидация на Url работает
-      },
-      message: 'Некорректный url адрес поля image',
-    },
+    match: regexUrl,
   },
   trailerLink: {
     type: String,
     required: true,
-    validate: {
-      validator(url) {
-        validator.isUrl(url); //!! проверить что валидация на Url работает
-      },
-      message: 'Некорректный url адрес поля image',
-    },
+    match: regexUrl,
   },
   thumbnail: {
     type: String,
     required: true,
-    validate: {
-      validator(url) {
-        validator.isUrl(url); //!! проверить что валидация на Url работает
-      },
-      message: 'Некорректный url адрес поля image',
-    },
+    match: regexUrl,
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -64,10 +53,12 @@ const schemaMovie = new mongoose.Schema({
   nameRU: {
     type: String,
     required: true,
+    match: regexRU,
   },
   nameEN: {
     type: String,
     required: true,
+    match: regexEN,
   },
 });
 
