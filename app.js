@@ -12,7 +12,6 @@ require('dotenv').config();
 // my components
 const router = require('./routes/index');
 const handleErrors = require('./middlewares/handleErrors');
-const notFound = require('./middlewares/notFound');
 
 const options = {
   origin: [
@@ -61,9 +60,6 @@ app.use(router);
 
 // celebrate errors
 app.use(errors());
-
-// not found error
-app.use('*', notFound);
 
 // handle errors
 app.use(handleErrors);

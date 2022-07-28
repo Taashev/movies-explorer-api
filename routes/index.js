@@ -6,6 +6,7 @@ const login = require('./login');
 const logout = require('./logout');
 const users = require('./users');
 const movies = require('./movies');
+const notFound = require('../middlewares/notFound');
 
 // request logger
 router.use(requestLogger);
@@ -27,6 +28,9 @@ router.use('/movies', movies);
 
 // logout
 router.use('/signout', logout);
+
+// not found error
+router.use('*', notFound);
 
 // error logger
 router.use(errorLogger);
