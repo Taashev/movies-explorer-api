@@ -1,6 +1,4 @@
 const regexUrl = /^(http[s]:\/\/)?[a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=]+(\.[a-zA-Z]{2,}([a-zA-Z0-9\-._~:/?#[\]@!$&'()*+,;=])*)/;
-const regexRU = /^[а-яА-Я\s\d]+$/i;
-const regexEN = /^[a-wA-W\s\d]+$/i;
 
 const errorMessages = {
   badRequest: 'Некорректно переданные данные',
@@ -14,7 +12,5 @@ const errorMessages = {
 
 module.exports = {
   regexUrl,
-  regexRU,
-  regexEN,
   errorMessages,
 };

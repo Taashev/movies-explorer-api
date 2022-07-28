@@ -1,9 +1,5 @@
 const { celebrate, Joi } = require('celebrate');
-const {
-  regexUrl,
-  regexRU,
-  regexEN,
-} = require('./constants');
+const { regexUrl } = require('./constants');
 
 // create user
 const validationCreateUser = celebrate({
@@ -42,8 +38,8 @@ const validationCreateMovie = celebrate({
     trailerLink: Joi.string().required().pattern(regexUrl),
     thumbnail: Joi.string().required().pattern(regexUrl),
     movieId: Joi.string().required(),
-    nameRU: Joi.string().required().pattern(regexRU),
-    nameEN: Joi.string().required().pattern(regexEN),
+    nameRU: Joi.string().required(),
+    nameEN: Joi.string().required(),
   }),
 });
 
