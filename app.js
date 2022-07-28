@@ -29,15 +29,14 @@ const options = {
 // express
 const app = express();
 
+// config
+const { MONGO_URL, PORT } = require('./config');
+
 // env
-const {
-  PORT = 3000,
-  NODE_ENV,
-  MONGODB = 'mongodb://localhost:27017/moviesdb',
-} = process.env;
+const { NODE_ENV } = process.env;
 
 // mongodb
-mongoose.connect(MONGODB);
+mongoose.connect(MONGO_URL);
 
 // limiter
 app.use(limiter);
