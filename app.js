@@ -5,6 +5,7 @@ const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
 const helmet = require('helmet');
+const cors = require('cors');
 const limiter = require('./middlewares/limiter');
 require('dotenv').config();
 
@@ -12,6 +13,19 @@ require('dotenv').config();
 const router = require('./routes/index');
 const handleErrors = require('./middlewares/handleErrors');
 const notFound = require('./middlewares/notFound');
+
+const options = {
+  origin: [
+    'localhost:3000',
+    'localhost:3001',
+    'http://localhost:3000',
+    'http://localhost:3001',
+    'movie.taashev.nomoredomains.xyz',
+    'http://movie.taashev.nomoredomains.xyz',
+    'https://movie.taashev.nomoredomains.xyz',
+  ],
+  credentials: true,
+};
 
 // express
 const app = express();
@@ -31,6 +45,9 @@ app.use(limiter);
 
 // helmet
 app.use(helmet());
+
+// cors
+app.use('*', cors(options));
 
 // cookie parser
 app.use(cookieParser());
