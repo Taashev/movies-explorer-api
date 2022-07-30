@@ -12,6 +12,7 @@ require('dotenv').config();
 // my components
 const router = require('./routes/index');
 const handleErrors = require('./middlewares/handleErrors');
+const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const options = {
   origin: [
@@ -38,6 +39,9 @@ const { NODE_ENV } = process.env;
 // mongodb
 mongoose.connect(MONGO_URL);
 
+// request logger
+app.use(requestLogger);
+
 // limiter
 app.use(limiter);
 
@@ -56,6 +60,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 // routers
 app.use(router);
+
+// error logger
+app.use(errorLogger);
 
 // celebrate errors
 app.use(errors());

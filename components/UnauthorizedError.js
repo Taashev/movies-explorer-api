@@ -1,6 +1,6 @@
-const HttpError = require('./HttpError');
+const BadRequestError = require('./BadRequestError');
 
-class UnauthorizedError extends HttpError {
+class UnauthorizedError extends BadRequestError {
   constructor(message) {
     super(message);
     this.statusCode = 401;

@@ -1,24 +1,13 @@
-const HttpError = require('../components/HttpError');
+const BadRequestError = require('../components/BadRequestError');
 const ConflictError = require('../components/ConflictError');
 
-const { errorMessages } = require('./constants');
-
-const {
-  badRequest,
-  mailBusy,
-} = errorMessages;
-
-const identifyError = (err) => {
+const identifyError = (err, message) => {
   if (err.code === 11000) {
-    return new ConflictError(mailBusy);
+    return new ConflictError(message);
   }
 
-  if (err.name === 'ValidationError') {
-    return new HttpError(badRequest);
-  }
-
-  if (err.name === 'CastError') {
-    return new HttpError(badRequest);
+  if (err.name === 'ValidationError' || err.name === 'CastError') {
+    return new BadRequestError(message);
   }
 
   return err;

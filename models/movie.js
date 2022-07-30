@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const { regexUrl } = require('../utils/constants');
+const validator = require('validator');
+const { messageErrors } = require('../utils/constants');
 
 const schemaMovie = new mongoose.Schema({
   country: {
@@ -25,17 +26,32 @@ const schemaMovie = new mongoose.Schema({
   image: {
     type: String,
     required: true,
-    match: regexUrl,
+    validate: {
+      validator(url) {
+        return validator.isURL(url);
+      },
+      message: messageErrors.imageInvalid,
+    },
   },
   trailerLink: {
     type: String,
     required: true,
-    match: regexUrl,
+    validate: {
+      validator(url) {
+        return validator.isURL(url);
+      },
+      message: messageErrors.trailerLinkInvalid,
+    },
   },
   thumbnail: {
     type: String,
     required: true,
-    match: regexUrl,
+    validate: {
+      validator(url) {
+        return validator.isURL(url);
+      },
+      message: messageErrors.thumbnailInvalid,
+    },
   },
   owner: {
     type: mongoose.Schema.Types.ObjectId,
@@ -43,7 +59,7 @@ const schemaMovie = new mongoose.Schema({
     required: true,
   },
   movieId: {
-    type: String,
+    type: Number,
     required: true,
   },
   nameRU: {

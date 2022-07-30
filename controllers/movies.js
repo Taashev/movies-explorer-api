@@ -1,7 +1,8 @@
 const Movie = require('../models/movie');
 const NotFoundError = require('../components/NotFoundError');
-const Forbidden = require('../components/ForbiddenError');
-const { errorMessages } = require('../utils/constants');
+const ForbiddenError = require('../components/ForbiddenError');
+const { messageErrors } = require('../utils/constants');
+const identifyError = require('../utils/identifyError');
 
 // create movie
 const createMovie = (req, res, next) => {
@@ -10,7 +11,10 @@ const createMovie = (req, res, next) => {
 
   Movie.create(body)
     .then((movie) => res.send(movie))
-    .catch(next);
+    .catch((err) => next(identifyError(
+      /* error */ err,
+      /* message */ messageErrors.addMovie,
+    )));
 };
 
 // get movies
@@ -19,7 +23,7 @@ const getMovies = (req, res, next) => {
 
   Movie.find({ owner: userId })
     .then((movies) => res.send(movies))
-    .catch(next);
+    .catch((err) => next(identifyError(err)));
 };
 
 // delete movie
@@ -27,20 +31,20 @@ const deleteMovie = (req, res, next) => {
   const { movieId } = req.params;
 
   Movie.findById({ _id: movieId })
-    .orFail(new NotFoundError(errorMessages.movieNotFound))
+    .orFail(new NotFoundError(messageErrors.movieNotFound))
     .then((movie) => {
       const owner = movie.owner.toString();
       const userId = req.user._id;
 
       if (owner !== userId) {
-        return next(new Forbidden(errorMessages.noRights));
+        return next(new ForbiddenError(messageErrors.noRights));
       }
 
       return Movie.findByIdAndRemove({ _id: movieId })
         .then((remoteMovie) => res.send(remoteMovie))
-        .catch(next);
+        .catch((err) => next(identifyError(err)));
     })
-    .catch(next);
+    .catch((err) => next(identifyError(err, messageErrors.moviedId)));
 };
 
 module.exports = {

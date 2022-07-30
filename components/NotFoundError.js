@@ -1,6 +1,6 @@
-const HttpError = require('./HttpError');
+const BadRequestError = require('./BadRequestError');
 
-class NotFoundError extends HttpError {
+class NotFoundError extends BadRequestError {
   constructor(message) {
     super(message);
     this.statusCode = 404;

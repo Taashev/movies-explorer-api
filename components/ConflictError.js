@@ -1,6 +1,6 @@
-const HttpError = require('./HttpError');
+const BadRequestError = require('./BadRequestError');
 
-class ConflictError extends HttpError {
+class ConflictError extends BadRequestError {
   constructor(message) {
     super(message);
     this.statusCode = 409;
