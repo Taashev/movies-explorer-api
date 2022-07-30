@@ -1,14 +1,15 @@
 const messageErrors = {
   badRequest: 'Некорректно переданные данные',
   moviedId: 'Некорректно переданный id фильма',
-  unauthorized: 'Необходима авторизация',
+  noToken: 'При авторизации произошла ошибка. Токен не передан или передан не в том формате',
+  invalidToken: 'При авторизации произошла ошибка. Переданный токен некорректен',
   mailBusy: 'Этот email уже занят',
 
   userNotFound: 'Такого пользователя не существует',
   movieNotFound: 'Такого фильма не существует',
   notFound: 'Ресурс не найден',
 
-  invalidEmailOrPassword: 'Неправильная почта или пароль',
+  invalidEmailOrPassword: 'Вы ввели неправильный логин или пароль',
   invalidEmail: 'Поле email заполнено некорректно',
   invalidImages: 'Поле image заполено некорректно',
   invalidTrailerLink: 'Поле trailer link заполено некорректно',
