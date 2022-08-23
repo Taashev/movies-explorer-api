@@ -13,6 +13,9 @@ router.use('/signup', createUser);
 // login
 router.use('/signin', login);
 
+// logout
+router.use('/signout', logout);
+
 // auth
 router.use(auth);
 
@@ -21,9 +24,6 @@ router.use('/users', users);
 
 // movies
 router.use('/movies', movies);
-
-// logout
-router.use('/signout', logout);
 
 // not found error
 router.use('*', notFound);
