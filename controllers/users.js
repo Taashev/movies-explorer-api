@@ -53,7 +53,7 @@ const login = (req, res, next) => {
 };
 
 // logout
-const logout = (req, res) => res.clearCookie('jwt', '').send({ message: messageErrors.bye });
+const logout = (req, res) => res.clearCookie('jwt').send({ message: messageErrors.bye });
 
 // get user info
 const getUserInfo = (req, res, next) => {
