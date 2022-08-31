@@ -2,8 +2,9 @@ const rateLimit = require('express-rate-limit');
 const { messageErrors } = require('../utils/constants');
 
 const limiter = rateLimit({
-  windowMs: 60 * 1000,
-  max: 30,
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100,
+  standardHeaders: true,
   legacyHeaders: false,
   message: messageErrors.limiterError,
 });
