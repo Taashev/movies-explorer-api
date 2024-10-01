@@ -16,13 +16,12 @@ const { requestLogger, errorLogger } = require('./middlewares/logger');
 
 const options = {
   origin: [
-    'localhost:3000',
-    'localhost:3001',
     'http://localhost:3000',
     'http://localhost:3001',
-    'movie.taashev.nomoredomains.xyz',
-    'http://movie.taashev.nomoredomains.xyz',
-    'https://movie.taashev.nomoredomains.xyz',
+    'http://taashev-movies-explorer.ru',
+    'http://www.taashev-movies-explorer.ru',
+    'https://taashev-movies-explorer.ru',
+    'https://www.taashev-movies-explorer.ru',
   ],
   credentials: true,
 };
