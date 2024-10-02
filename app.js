@@ -18,10 +18,8 @@ const options = {
   origin: [
     'http://localhost:3000',
     'http://localhost:3001',
-    'http://taashev-movies-explorer.ru',
-    'http://www.taashev-movies-explorer.ru',
-    'https://taashev-movies-explorer.ru',
-    'https://www.taashev-movies-explorer.ru',
+    'https://movies-explorer.taashev92.ru',
+    'https://www.movies-explorer.taashev92.ru',
   ],
   credentials: true,
 };
